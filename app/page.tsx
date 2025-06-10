@@ -206,7 +206,7 @@ export default function Home() {
                 <Play className="h-4 w-4" />
                 <AlertDescription>
                   <strong>Strategy tip:</strong> Keep one eye on the video, one eye on the questions. 
-                  When you hear the answer - strike fast! ⚡
+                  When you see the answer - strike fast! ⚡
                 </AlertDescription>
               </Alert>
             </div>
