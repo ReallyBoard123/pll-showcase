@@ -316,7 +316,7 @@ export default function Home() {
                             </div>
                           ) : (
                             <div className="text-xs text-muted-foreground">
-                              Answer when ready
+                              Answer as soon as possible!
                             </div>
                           )}
                         </div>
