@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import { Play, Camera } from "lucide-react";
+import { Play } from "lucide-react";
 
 type Question = {
   id: number;
@@ -42,15 +42,6 @@ const questions: Question[] = [
   },
   {
     id: 3,
-    question: "University of Leipzig has been there for how many years?",
-    options: ["More than 300 years", "More than 200 years", "More than 600 years", "More than 1000 years"],
-    correctAnswer: "More than 600 years",
-    type: "multiple-choice",
-    startTime: 23,
-    answerTime: "24-27s"
-  },
-  {
-    id: 4,
     question: "Which one of the following was not an alumni at the University of Leipzig?",
     options: ["Angela Merkel", "Nietzsche", "Goethe", "Albert Einstein"],
     correctAnswer: "Albert Einstein",
@@ -59,7 +50,7 @@ const questions: Question[] = [
     answerTime: "28-31s"
   },
   {
-    id: 5,
+    id: 4,
     question: "Leipzig is part of which state in Germany?",
     options: ["Saxony", "Bavaria", "Brandenburg", "Thuringia"],
     correctAnswer: "Saxony",
@@ -82,35 +73,19 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoUrl = "https://fahyg85j4o.ufs.sh/f/TWfxvOHdIuEQ71513Eg3KFgxzNithZERrdn0j5O46BYGeuby";
 
-  const requestCameraPermission = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      stream.getTracks().forEach(track => track.stop());
-      return true;
-    } catch (error) {
-      console.error("Camera permission denied:", error);
-      return false;
-    }
-  };
-
   const startVideoQuiz = async () => {
-    const hasPermission = await requestCameraPermission();
-    if (hasPermission) {
-      setCurrentPhase("video");
-      setCurrentQuestionIndex(-1);
-      setUserAnswers({});
-      setSubmittedQuestions(new Set());
-      setShowCorrectAnswer(false);
-      setShowHint(false);
-      setNextQuestionCountdown(0);
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.play();
-        }
-      }, 100);
-    } else {
-      alert("Camera permission is required for this demonstration.");
-    }
+    setCurrentPhase("video");
+    setCurrentQuestionIndex(-1);
+    setUserAnswers({});
+    setSubmittedQuestions(new Set());
+    setShowCorrectAnswer(false);
+    setShowHint(false);
+    setNextQuestionCountdown(0);
+    setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.play();
+      }
+    }, 100);
   };
 
   const handleVideoTimeUpdate = () => {
@@ -205,41 +180,40 @@ export default function Home() {
         <Card className="max-w-2xl w-full">
           <CardHeader className="text-center space-y-4">
             <div className="mx-auto w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-              <Camera className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Play className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
             <CardTitle className="text-2xl font-bold">
-              Eyetracking & Facial Expression Recognition Demo
+              Leipzig University Demo - Chaos Mode! 🎯
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="text-center space-y-4">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Hello! This is a simple demonstration for eyetracking and facial expression recognition 
-                that we use at the Process Living Lab at Small Enterprise Promotion and Training.
+                Welcome to our multitasking challenge! This is a demonstration from the Process Living Lab 
+                at Small Enterprise Promotion and Training where chaos meets focus!
               </p>
               <Separator />
               <div className="space-y-3 text-left">
-                <p className="font-medium">As part of this demo, you will:</p>
+                <p className="font-medium">🎪 Ready for the Challenge?</p>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                  <li>Watch a simple video about Leipzig and the University of Leipzig</li>
-                  <li>Answer 5 questions that appear at specific moments during the video</li>
-                  <li>Take your time - questions stay on screen until you answer them</li>
-                  <li>The next question appears when you complete the current one</li>
-                  <li>Your face will be recorded via webcam for demonstration purposes</li>
+                  <li><strong>Multitask like a pro!</strong> Read questions AND watch the video simultaneously</li>
+                  <li><strong>Stay alert!</strong> Questions will change automatically at specific moments</li>
+                  <li><strong>Be lightning fast!</strong> As soon as you spot the answer in the video - click and submit!</li>
+                  <li><strong>4 questions total</strong> - Can you catch them all while focusing on the video?</li>
                 </ul>
               </div>
               <Alert>
-                <Camera className="h-4 w-4" />
+                <Play className="h-4 w-4" />
                 <AlertDescription>
-                  Please watch the video carefully as all questions are based on its content. 
-                  Camera permission is required to continue.
+                  <strong>Strategy tip:</strong> Keep one eye on the video, one eye on the questions. 
+                  When you hear the answer - strike fast! ⚡
                 </AlertDescription>
               </Alert>
             </div>
             <div className="flex justify-center pt-4">
               <Button onClick={startVideoQuiz} size="lg" className="px-8 py-3 text-lg">
                 <Play className="w-5 h-5 mr-2" />
-                Start Video & Begin Demo
+                Start the Chaos! 🚀
               </Button>
             </div>
           </CardContent>
@@ -316,7 +290,7 @@ export default function Home() {
                             </div>
                           ) : (
                             <div className="text-xs text-muted-foreground">
-                              Answer as soon as possible!
+                              Answer when ready
                             </div>
                           )}
                         </div>
